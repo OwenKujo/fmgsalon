@@ -220,5 +220,5 @@ export default function MatsengaWellness() {
         </div>
       </section>
     </div>
-  );
+  );  
 }

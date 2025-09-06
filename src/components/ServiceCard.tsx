@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+// Removed Next.js Image import
 
 interface ServiceCardProps {
   title: string;
@@ -10,11 +10,10 @@ export default function ServiceCard({ title, imageUrl }: ServiceCardProps) {
   return (
     <div className="relative group cursor-pointer">
       <div className="relative w-[280px] h-[280px] overflow-hidden rounded-lg">
-        <Image
+        <img
           src={imageUrl}
           alt={title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          className="object-cover transition-transform duration-300 group-hover:scale-110 w-full h-full"
         />
       </div>
       <div className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded">

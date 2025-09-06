@@ -19,16 +19,16 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#home" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
+            <a href="/" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
               Home
             </a>
-            <a href="#matsenga-wellness" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
+            <a href="/wellness" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
               Matsenga Wellness
             </a>
-            <a href="#blog" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
+            <a href="/blog" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
               Blog
             </a>
-            <a href="#about" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
+            <a href="/about" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
               About Us
             </a>
           </nav>
@@ -64,16 +64,16 @@ const Header: React.FC = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-beige rounded-md mt-2">
-              <a href="#home" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
+              <a href="/" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
                 Home
               </a>
-              <a href="#matsenga-wellness" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
+              <a href="/wellness" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
                 Matsenga Wellness
               </a>
-              <a href="#blog" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
+              <a href="/blog" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
                 Blog
               </a>
-              <a href="#about" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
+              <a href="/about" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
                 About Us
               </a>
               <div className="flex items-center space-x-4 px-3 py-2">

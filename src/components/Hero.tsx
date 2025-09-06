@@ -4,25 +4,25 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const bannerImages = [
   {
     id: 1,
-    title: "Forever Matsenga",
+    title: "Ferovere Matsenga",
     description: "Professional hair repair and protection",
     image: "/465623995_1059718609487585_6186430544580081574_n.png",
   },
   {
     id: 2,
-    title: "Forever Matsenga",
+    title: "Ferovere Matsenga",
     description: "Smooth and frizz-free hair",
     image: "/videoframe_2261.png",
   },
   {
     id: 3,
-    title: "Forever Matsenga",
+    title: "Ferovere Matsenga",
     description: "Premium hair styling products",
     image: "/videoframe_7525.png",
   },
   {
     id: 4,
-    title: "Forever Matsenga",
+    title: "Ferovere Matsenga",
     description: "Expert coloring services",
     image: "/videoframe_7682.png",
   },

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Service = { title: string; image: string };
 
@@ -18,9 +19,17 @@ const VISIBLE = 3; // number of cards shown
 
 export default function ServicesCarousel() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
 
-  const next = () => setCurrent((i) => (i + 1) % services.length);
-  const prev = () => setCurrent((i) => (i - 1 + services.length) % services.length);
+  const next = () => {
+    setDirection("right");
+    setCurrent((i) => (i + 1) % services.length);
+  };
+
+  const prev = () => {
+    setDirection("left");
+    setCurrent((i) => (i - 1 + services.length) % services.length);
+  };
 
   // keyboard support
   useEffect(() => {
@@ -39,7 +48,7 @@ export default function ServicesCarousel() {
   );
 
   return (
-    <section className="w-full flex bg-[#faf7f3]">
+    <section className="w-full flex bg-[#faf7f3] overflow-hidden">
       {/* Left: title block */}
       <div className="w-1/4 min-w-[240px] flex flex-col justify-center pl-16 pr-10 py-16">
         <h2 className="text-2xl font-bold mb-3">Our Services</h2>
@@ -52,47 +61,56 @@ export default function ServicesCarousel() {
       {/* Right: cards */}
       <div className="w-3/4 py-12 pr-16">
         <div className="rounded-2xl p-8 overflow-hidden">
-          <div className="flex gap-8 items-start pt-10 pb-10">
-            {visible.map((service, idx) => (
+          <AnimatePresence initial={false} mode="popLayout">
+            <motion.div
+              key={current} // re-render on index change
+              className="flex gap-8 items-start pt-10 pb-10"
+              initial={{ x: direction === "right" ? 100 : -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: direction === "right" ? -100 : 100, opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              {visible.map((service, idx) => (
+                <div
+                  key={`${current}-${idx}-${service.title}`}
+                  className="relative rounded-[22px] overflow-hidden shadow-xl ring-1 ring-black/5
+                             shrink-0 w-[260px] h-[360px] group transition-transform duration-300 hover:scale-[1.03]"
+                  style={{
+                    boxShadow: "0 6px 28px rgba(0,0,0,.14)",
+                    transform: `translateY(${idx % 2 === 0 ? "0px" : "40px"})`,
+                  }}
+                >
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "center top" }}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 px-4 py-3 bg-gradient-to-t from-black/65 to-transparent">
+                    <span className="text-white font-semibold tracking-wide drop-shadow-sm">
+                      {service.title}
+                    </span>
+                  </div>
+                </div>
+              ))}
+
+              {/* subtle peek of next card */}
               <div
-                key={`${current}-${idx}-${service.title}`}
-                className="relative rounded-[22px] overflow-hidden shadow-xl ring-1 ring-black/5
-                           shrink-0 w-[260px] h-[360px] group transition-transform duration-300 hover:scale-[1.03]"
-                style={{
-                  boxShadow: "0 6px 28px rgba(0,0,0,.14)",
-                  transform: `translateY(${idx % 2 === 0 ? "0px" : "40px"})`, // zigzag
-                }}
+                aria-hidden
+                className="hidden xl:block relative rounded-[22px] overflow-hidden opacity-50
+                           shrink-0 w-[180px] h-[360px]"
+                style={{ transform: "translateY(20px)" }}
               >
                 <img
-                  src={service.image}
-                  alt={service.title}
+                  src={services[(current + VISIBLE) % services.length].image}
+                  alt=""
                   className="w-full h-full object-cover"
                   style={{ objectPosition: "center top" }}
                 />
-                <div className="absolute inset-x-0 bottom-0 px-4 py-3 bg-gradient-to-t from-black/65 to-transparent">
-                  <span className="text-white font-semibold tracking-wide drop-shadow-sm">
-                    {service.title}
-                  </span>
-                </div>
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
-            ))}
-
-            {/* subtle peek of next card */}
-            <div
-              aria-hidden
-              className="hidden xl:block relative rounded-[22px] overflow-hidden opacity-50
-                         shrink-0 w-[180px] h-[360px]"
-              style={{ transform: "translateY(20px)" }}
-            >
-              <img
-                src={services[(current + VISIBLE) % services.length].image}
-                alt=""
-                className="w-full h-full object-cover"
-                style={{ objectPosition: "center top" }}
-              />
-              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent" />
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* arrows */}

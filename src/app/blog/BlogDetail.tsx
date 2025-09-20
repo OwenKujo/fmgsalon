@@ -15,8 +15,8 @@ export default function BlogDetail() {
       setLoading(true);
       setError("");
       try {
-        const API_BASE = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "";
-        const res = await fetch(`${API_BASE}/api/blog/${slug}`);
+  const API_BASE = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
+  const res = await fetch(`${API_BASE}/api/blog/${slug}`);
         if (!res.ok) throw new Error("Blog not found");
         const data = await res.json();
         setBlog(data);

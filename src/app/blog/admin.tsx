@@ -116,13 +116,13 @@ export default function BlogAdmin() {
     }
 
     try {
-      const API_BASE = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "";
+  const API_BASE = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
       let imageUrl = image;
       // If an image file is selected, upload it to backend (Cloudinary)
       if (imageFile) {
         const imgForm = new FormData();
         imgForm.append("image", imageFile);
-        const imgRes = await fetch(`${API_BASE}/api/upload/image`, {
+  const imgRes = await fetch(`${API_BASE}/api/upload/image`, {
           method: "POST",
           body: imgForm,
         });
@@ -148,7 +148,7 @@ export default function BlogAdmin() {
       formData.append("metaDescription", metaDescription);
       formData.append("metaKeywords", metaKeywords);
 
-      const res = await fetch(`${API_BASE}/api/blog`, {
+  const res = await fetch(`${API_BASE}/api/blog`, {
         method: "POST",
         headers: { "x-admin-pass": password },
         body: formData,

@@ -10,7 +10,7 @@ export default function BlogList() {
 			setLoading(true);
 			setError("");
 			try {
-				const API_BASE = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "";
+				const API_BASE = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
 				const res = await fetch(`${API_BASE}/api/blog`);
 				if (!res.ok) throw new Error("Failed to fetch blogs");
 				const data = await res.json();

@@ -46,15 +46,31 @@ export default function BlogAdmin() {
     }
   };
 
-  // Slug auto-generation
-  const handleSlugChange = (val: string) => {
-    setSlug(
-      val
-        .toLowerCase()
-        .trim()
-        .replace(/[\s]+/g, "-")
-        .replace(/[^\w-]+/g, "")
-    );
+  // Slug auto-generation with uniqueness check
+  const handleSlugChange = async (val: string) => {
+    let baseSlug = val
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+    if (!baseSlug) {
+      setSlug("");
+      return;
+    }
+    // Check uniqueness with backend
+    const API_BASE = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "";
+    let uniqueSlug = baseSlug;
+    let counter = 1;
+    let exists = false;
+    do {
+      const res = await fetch(`${API_BASE}/api/blog/${uniqueSlug}`);
+      exists = res.ok;
+      if (exists) {
+        uniqueSlug = `${baseSlug}-${counter}`;
+        counter++;
+      }
+    } while (exists && counter < 100);
+    setSlug(uniqueSlug);
   };
 
   // Image upload
@@ -100,6 +116,24 @@ export default function BlogAdmin() {
     }
 
     try {
+      const API_BASE = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "";
+      let imageUrl = image;
+      // If an image file is selected, upload it to backend (Cloudinary)
+      if (imageFile) {
+        const imgForm = new FormData();
+        imgForm.append("image", imageFile);
+        const imgRes = await fetch(`${API_BASE}/api/upload/image`, {
+          method: "POST",
+          body: imgForm,
+        });
+        if (!imgRes.ok) {
+          const data = await imgRes.json();
+          throw new Error(data.error || "Image upload failed");
+        }
+        const data = await imgRes.json();
+        imageUrl = data.url;
+      }
+
       const formData = new FormData();
       formData.append("title", title);
       formData.append("excerpt", excerpt);
@@ -107,14 +141,14 @@ export default function BlogAdmin() {
       formData.append("slug", slug);
       formData.append("content", editor.getHTML());
       formData.append("status", status);
-      if (imageFile) formData.append("image", imageFile);
+      formData.append("image", imageUrl);
       formData.append("tags", JSON.stringify(tags));
       formData.append("categories", JSON.stringify(categories));
       formData.append("metaTitle", metaTitle);
       formData.append("metaDescription", metaDescription);
       formData.append("metaKeywords", metaKeywords);
 
-      const res = await fetch("/api/blog", {
+      const res = await fetch(`${API_BASE}/api/blog`, {
         method: "POST",
         headers: { "x-admin-pass": password },
         body: formData,
@@ -172,9 +206,9 @@ export default function BlogAdmin() {
             className="w-full border rounded px-3 py-2"
             placeholder="Title"
             value={title}
-            onChange={(e) => {
+            onChange={async (e) => {
               setTitle(e.target.value);
-              if (!slug) handleSlugChange(e.target.value);
+              if (!slug) await handleSlugChange(e.target.value);
             }}
             required
           />
@@ -204,7 +238,7 @@ export default function BlogAdmin() {
             className="w-full border rounded px-3 py-2"
             placeholder="Slug (auto-generated from title)"
             value={slug}
-            onChange={(e) => handleSlugChange(e.target.value)}
+            onChange={async (e) => await handleSlugChange(e.target.value)}
             required
           />
 

@@ -10,7 +10,7 @@ import Pricing from './components/Pricing';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Wellness from './app/wellness/wellness'
-import Blog from './app/blog/ิิblog';
+import BlogList from './app/blog/bloguse';
 import BlogAdmin from './app/blog/admin';
 import BlogDetail from './app/blog/BlogDetail';
 import About from './app/about/about';
@@ -32,7 +32,7 @@ function App() {
               </>
             } />
             <Route path="/wellness" element={<Wellness />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog" element={<BlogList />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog/admin" element={<BlogAdmin />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />

@@ -1,65 +1,92 @@
 import React from "react";
+import { Scissors, Sparkles, Brush } from "lucide-react"; // icons
 
 const Pricing: React.FC = () => {
   const pricingList = [
-    { service: "HAIR CUT & BLOW DRY", price: "B 700 - 900" },
-    { service: "WASH & BLOW DRY", price: "B 300 - 700" },
-    { service: "HAIR COLOR", price: "B 2,500 - 5,500" },
-    { service: "BLEACH / HIGHLIGHTS", price: "B 1,000 - 2,000" },
-    { service: "PERM", price: "B 2,500 - 4,000" },
-    { service: "DIGITAL PERM", price: "B 4,500 - 7,500" },
-    { service: "REBONDING HAIR", price: "B 4,500 - 7,500" },
-    { service: "HAIR TREATMENT", price: "B 1,500 - 4,500" },
-    { service: "SCALP TREATMENT", price: "B 2,500 - 4,000" },
-    { service: "KERATIN TREATMENT", price: "B 5,000 - 8,500" },
-    { service: "BRAZILIAN BLOWOUT", price: "B 5,500 - 8,500" },
-    { service: "POLISH", price: "B 200 - 400" },
-    { service: "GEL POLISH", price: "B 399 - 790" },
-    { service: "GEL NAIL ART", price: "50 UP" },
+    { service: "HAIR CUT & BLOW DRY", price: "B 700 - 900", category: "Hair" },
+    { service: "WASH & BLOW DRY", price: "B 300 - 700", category: "Hair" },
+    { service: "HAIR COLOR", price: "B 2,500 - 5,500", category: "Hair" },
+    { service: "BLEACH / HIGHLIGHTS", price: "B 1,000 - 2,000", category: "Hair" },
+    { service: "PERM", price: "B 2,500 - 4,000", category: "Hair" },
+    { service: "DIGITAL PERM", price: "B 4,500 - 7,500", category: "Hair" },
+    { service: "REBONDING HAIR", price: "B 4,500 - 7,500", category: "Hair" },
+    { service: "HAIR TREATMENT", price: "B 1,500 - 4,500", category: "Treatment" },
+    { service: "SCALP TREATMENT", price: "B 2,500 - 4,000", category: "Treatment" },
+    { service: "KERATIN TREATMENT", price: "B 5,000 - 8,500", category: "Treatment" },
+    { service: "BRAZILIAN BLOWOUT", price: "B 5,500 - 8,500", category: "Treatment" },
+    { service: "POLISH", price: "B 200 - 400", category: "Nails" },
+    { service: "GEL POLISH", price: "B 399 - 790", category: "Nails" },
+    { service: "GEL NAIL ART", price: "50 UP", category: "Nails" },
   ];
 
+  // Group services by category
+  const grouped = pricingList.reduce((acc: any, item) => {
+    acc[item.category] = acc[item.category] || [];
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
+  // Icons for categories
+  const categoryIcons: Record<string, React.ReactNode> = {
+    Hair: <Scissors className="w-6 h-6 text-yellow-500" />,
+    Treatment: <Sparkles className="w-6 h-6 text-pink-500" />,
+    Nails: <Brush className="w-6 h-6 text-purple-500" />,
+  };
+
   return (
-    <section className="py-16 bg-primary-beige">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Image */}
-          <div className="h-96 lg:h-full rounded-lg overflow-hidden shadow-lg">
-            <img
-              src="/Price-banner.png" // Replace with your image
-              alt="Pricing Banner"
-              className="w-full h-full object-cover"
-            />
-          </div>
+    <section className="py-20 bg-gradient-to-b from-primary-beige to-white relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div className="text-center mb-14">
+          <h2 className="text-4xl font-extrabold text-gray-800 mb-3 tracking-wide">
+            OUR PRICING
+          </h2>
+          <div className="h-1 w-28 mx-auto rounded bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 animate-pulse"></div>
+          <p className="mt-4 text-gray-600">
+            Premium hair, nail & treatment services just for you
+          </p>
+        </div>
 
-          {/* Right Side - Pricing */}
-          <div className="bg-secondary-beige p-8 rounded-lg shadow-lg">
-            <h2 className="text-4xl font-bold text-gray-800 mb-2 text-center">
-              OUR PRICING
-            </h2>
-            {/* Gradient line under title */}
+        {/* Pricing Grid */}
+        <div className="grid gap-10 md:grid-cols-3">
+          {Object.entries(grouped).map(([category, services]) => (
             <div
-              className="h-1 w-24 rounded mb-8 mx-auto"
-              style={{ background: "linear-gradient(to right, #F7E7B4, #E6D3A3)" }}
-            ></div>
+              key={category}
+              className="bg-white/70 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+            >
+              {/* Category Header */}
+              <div className="flex items-center justify-center gap-2 mb-6">
+                {categoryIcons[category]}
+                <h3 className="text-2xl font-semibold text-gray-800">
+                  {category}
+                </h3>
+              </div>
 
-            <div className="space-y-3">
-              {pricingList.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center py-3 px-4 rounded hover:bg-yellow-50 transition-colors border-b border-gray-300 last:border-b-0"
-                >
-                  <span className="text-gray-800 font-medium">{item.service}</span>
-                  <span className="text-gray-800 font-bold">{item.price}</span>
-                </div>
-              ))}
+              {/* Services */}
+              <div className="space-y-4">
+                {(services as any).map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex justify-between items-center pb-3 border-b border-gray-200 last:border-0 group"
+                  >
+                    <span className="text-gray-700 group-hover:text-pink-600 transition">
+                      {item.service}
+                    </span>
+                    <span className="text-gray-900 font-bold group-hover:text-purple-600 transition">
+                      {item.price}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
 
-            <div className="mt-8 text-center">
-              <button className="bg-accent-beige text-gray-800 px-8 py-3 rounded-md hover:bg-gray-100 transition-colors font-semibold shadow-lg">
-                BOOK APPOINTMENT
-              </button>
-            </div>
-          </div>
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <button className="px-10 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-500 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform">
+            BOOK APPOINTMENT
+          </button>
         </div>
       </div>
     </section>

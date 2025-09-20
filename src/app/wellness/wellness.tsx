@@ -318,7 +318,6 @@ export default function MatsengaWellness() {
       </section>
 
       {/* Review Carousel Section */}
-      {/* Review Carousel Section */}
 <section
   ref={reviewSectionRef}
   className={`py-16 bg-[#F5F1ED] transition-all duration-700 ease-out ${

@@ -11,7 +11,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Wellness from './app/wellness/wellness'
 import BlogList from './app/blog/bloguse';
-import BlogAdmin from './app/blog/admin';
+import AdminBlogManager from './app/blog/admin';
 import BlogDetail from './app/blog/BlogDetail';
 import About from './app/about/about';
 
@@ -34,7 +34,7 @@ function App() {
             <Route path="/wellness" element={<Wellness />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/about" element={<About />} />
-            <Route path="/blog/admin" element={<BlogAdmin />} />
+            <Route path="/blog/admin/*" element={<AdminBlogManager />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             {/* Add more pages */}
           </Routes>

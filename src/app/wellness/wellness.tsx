@@ -27,7 +27,7 @@ export default function MatsengaWellness() {
       subtitle: "นวดรักษากดจุดราชสำนัก",
       description:
         "Experience deep relaxation and healing with our royal court acupressure massage, designed to relieve tension and restore balance.",
-      image: "/new-wel1.jpg",
+      image: "/ACP.jpg",
       duration: "60 min",
       price: "1,600 THB",
     },
@@ -36,7 +36,7 @@ export default function MatsengaWellness() {
       subtitle: "นวดน้ำมันรีดเส้น",
       description:
         "Targets deep muscle layers with firm pressure to relieve deep muscle tension, chronic pain and restore body mobility.",
-      image: "/new-wel2.jpg",
+      image: "/DEEP_T.jpg",
       duration: "60 min",
       price: "1,600 THB",
     },
@@ -45,7 +45,7 @@ export default function MatsengaWellness() {
       subtitle: "นวดศีรษะไมเกรน",
       description:
         "Targeted head massage to release tension and relieve migraine pain.",
-      image: "/new-wel3.jpg",
+      image: "/Migraine Relief Massage.jpg",
       duration: "60 min",
       price: "1,600 THB",
     },
@@ -54,7 +54,7 @@ export default function MatsengaWellness() {
       subtitle: "นวดเดรนน้ำเหลือง",
       description:
         "Gentle technique designed to stimulate the lymphatic system, reduce fluid retention, detoxify the body, and support immune function.",
-      image: "/new-wel4.jpg",
+      image: "/Lymphatic M.jpg",
       duration: "60 min",
       price: "1,600 THB",
     },
@@ -63,7 +63,7 @@ export default function MatsengaWellness() {
       subtitle: "นวดน้ำมันผ่อนคลาย",
       description:
         "Aromatherapy helps relax muscles, enhance blood circulation, nourish the skin, relieve the stress, and improve sleep quality.",
-      image: "/new-wel5.jpg",
+      image: "/Aroma.jpg",
       duration: "60 min",
       price: "1,600 THB",
     },

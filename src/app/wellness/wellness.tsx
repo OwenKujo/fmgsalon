@@ -28,8 +28,11 @@ export default function MatsengaWellness() {
       description:
         "Experience deep relaxation and healing with our royal court acupressure massage, designed to relieve tension and restore balance.",
       image: "/ACP.jpg",
-      duration: "60 min",
-      price: "1,600 THB",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
     },
     {
       title: "Deep Tissue / Sport Massage",
@@ -37,8 +40,23 @@ export default function MatsengaWellness() {
       description:
         "Targets deep muscle layers with firm pressure to relieve deep muscle tension, chronic pain and restore body mobility.",
       image: "/DEEP_T.jpg",
-      duration: "60 min",
-      price: "1,600 THB",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
+    },
+    {
+      title: "Office Syndrome & Migraine Relief ",
+      subtitle: "นวดรักษาอาการออฟฟิศซินโดรม ปวดศีรษะไมเกรน",
+      description:
+        "Targeted therapy for release and gentle mobilization relieve stiffness and reduce tension headaches.",
+      image: "/DEEP_T.jpg",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
     },
     {
       title: "Migraine Relief Massage",
@@ -46,8 +64,11 @@ export default function MatsengaWellness() {
       description:
         "Targeted head massage to release tension and relieve migraine pain.",
       image: "/Migraine Relief Massage.jpg",
-      duration: "60 min",
-      price: "1,600 THB",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
     },
     {
       title: "Lymphatic Drainage",
@@ -55,8 +76,11 @@ export default function MatsengaWellness() {
       description:
         "Gentle technique designed to stimulate the lymphatic system, reduce fluid retention, detoxify the body, and support immune function.",
       image: "/Lymphatic M.jpg",
-      duration: "60 min",
-      price: "1,600 THB",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
     },
     {
       title: "Aromatherapy Massage",
@@ -64,27 +88,21 @@ export default function MatsengaWellness() {
       description:
         "Aromatherapy helps relax muscles, enhance blood circulation, nourish the skin, relieve the stress, and improve sleep quality.",
       image: "/Aroma.jpg",
-      duration: "60 min",
-      price: "1,600 THB",
+      options: [
+        { duration: "60 mins", price: "1,600 THB" },
+        { duration: "90 mins", price: "2,400 THB" },
+        { duration: "120 mins", price: "3,200 THB" },
+      ],
     },
   ];
 
   // Service carousel state
   const [serviceIdx, setServiceIdx] = useState(0);
-  const [slideDir, setSlideDir] = useState<"left" | "right" | null>(null);
   const prevService = () => {
-    setSlideDir("left");
-    setTimeout(() => {
-      setServiceIdx((i) => (i - 1 + services.length) % services.length);
-      setSlideDir(null);
-    }, 300);
+    setServiceIdx((i) => (i - 1 + services.length) % services.length);
   };
   const nextService = () => {
-    setSlideDir("right");
-    setTimeout(() => {
-      setServiceIdx((i) => (i + 1) % services.length);
-      setSlideDir(null);
-    }, 300);
+    setServiceIdx((i) => (i + 1) % services.length);
   };
 
   // Animation hooks
@@ -113,8 +131,7 @@ export default function MatsengaWellness() {
       setReviewDir(null);
     }, 300);
   };
-  const leftIdx = (reviewIdx - 1 + reviewImages.length) % reviewImages.length;
-  const rightIdx = (reviewIdx + 1) % reviewImages.length;
+  
 
   return (
     <div className="min-h-screen bg-white">
@@ -137,14 +154,13 @@ export default function MatsengaWellness() {
             Welcome To
           </h1>
           <img
-            src="/wel_logo.png"
+            src="/WELLNESS-Photoroom.png"
             alt="Matsenga Wellness Logo"
             className="mx-auto drop-shadow-2xl"
             style={{ height: "220px", width: "auto" }}
           />
           <p className="mt-6 max-w-xl text-base md:text-lg text-white/80 leading-relaxed">
-            A sanctuary of healing and balance — where traditional Thai therapies
-            meet modern wellness.
+            A sanctuary of healing and elements balance where traditional Thai therapists meet modern wellness.
           </p>
           <button className="mt-8 bg-[#D4B08A] hover:bg-[#C4A07A] text-white px-10 py-4 rounded-full text-sm md:text-base font-medium shadow-lg transition-all duration-300">
             Discover Treatments
@@ -168,8 +184,8 @@ export default function MatsengaWellness() {
         </div>
         <div className="w-full lg:w-2/3 bg-[#F5F1ED] p-8 flex flex-col justify-center text-center">
           <h2 className="text-3xl md:text-5xl font-light text-gray-800 mb-6 leading-relaxed">
-            "Because you deserve to <br className="hidden md:block" />
-            feel your best, everyday"
+            “Where tradition meets precision <br className="hidden md:block" />
+            and every touch heals”
           </h2>
           <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-8">
             นวดไทย สปาอินโฮม Office Syndrome & Post Workout Recovery Massage
@@ -210,7 +226,7 @@ export default function MatsengaWellness() {
             </button>
 
             {/* Slides */}
-            <div className="w-full overflow-hidden relative h-[400px] md:h-[500px]">
+            <div className="w-full overflow-hidden relative h-[520px] md:h-[600px]">
               {services.map((service, idx) => {
                 let position = "translate-x-full opacity-0";
                 if (idx === serviceIdx)
@@ -225,7 +241,7 @@ export default function MatsengaWellness() {
                     key={idx}
                     className={`absolute top-0 left-0 w-full h-full flex flex-col md:flex-row items-center bg-white rounded-xl shadow-lg transition-all duration-500 ease-in-out ${position}`}
                   >
-                    <div className="md:w-1/2 w-full flex justify-center items-center bg-[#e5dfd6] p-6">
+                    <div className="md:w-1/2 w-full flex justify-center items-centerp-2 md:p-2 rounded-full overflow-hidden">
                       <img
                         src={service.image}
                         alt={service.title}
@@ -238,11 +254,21 @@ export default function MatsengaWellness() {
                       </h3>
                       <div className="text-lg text-gray-700 mb-2">{service.subtitle}</div>
                       <p className="text-base text-gray-700 mb-6">{service.description}</p>
-                      <div className="flex items-center justify-between border-t border-b py-4 mb-6">
-                        <span className="text-lg text-gray-800">{service.duration}</span>
-                        <span className="text-xl md:text-2xl font-bold text-amber-900">
-                          {service.price}
-                        </span>
+                      <div className="flex items-center justify-center gap-4 border-t border-b py-6 mb-6 flex-wrap">
+                        {service.options?.map((opt, k) => (
+                          <div
+                            key={k}
+                            className="min-w-[220px] md:min-w-[320px] bg-white/95 rounded-2xl p-3 md:p-4 shadow-sm border border-gray-100 flex items-center justify-between gap-4 hover:shadow-md transition cursor-default"
+                          >
+                            <div className="text-left">
+                              <div className="text-sm text-gray-500">{opt.duration}</div>
+                              <div className="text-xs text-gray-400">per session</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-lg md:text-2xl font-extrabold text-amber-900">{opt.price}</div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                       <button className="bg-red-700 hover:bg-red-800 text-white px-6 md:px-8 py-3 rounded font-semibold">
                         BOOKING
@@ -268,14 +294,10 @@ export default function MatsengaWellness() {
             Personalized Therapeutic Massage
           </h2>
           <p className="text-center text-gray-700 mb-10 text-base md:text-lg leading-relaxed">
-            Every session begins with an one-on-one health consultation with
-            ATTM. doctor to understand your body needs and concerns.
+            Every session begins with an one-on-one health consultation with ATTM. doctor to understand your body needs and concerns.
             <br />
-            ออกแบบการรักษาเฉพาะบุคคล ดูแลโดยแพทย์แผนไทยประยุกต์ เทคนิคพิเศษ
-            กดจุดสัญญาณ รัดเส้นตามแนวเส้นประธาน
-            <br />
-            “เข้าถึงง่าย – สะอาด ปลอดภัย มีคุณภาพ – ให้บริการจริงจัง –
-            มุ่งเน้นผลลัพธ์การรักษา”
+            ออกแบบการรักษาเฉพาะบุคคล ดูแลโดยแพทย์แผนไทยประยุกต์ “เข้าถึงง่าย สะอาด ปลอดภัย มีคุณภาพ มุ่งเน้นผลลัพธ์การรักษา”
+
           </p>
           <div className="grid sm:grid-cols-2 gap-6 md:gap-8 mb-12">
             {services.map((srv, i) => (
@@ -287,9 +309,6 @@ export default function MatsengaWellness() {
                   {srv.title}
                 </h3>
                 <p className="text-gray-700 mb-1">{srv.subtitle}</p>
-                <p className="text-amber-900 font-bold">
-                  {srv.price} / {srv.duration}
-                </p>
               </div>
             ))}
           </div>
@@ -298,19 +317,22 @@ export default function MatsengaWellness() {
               Book Your Personalized Session
             </button>
           </div>
-          <div className="text-center text-2xl md:text-3xl text-amber-900 font-semibold mb-2">
-            Tailored to Your Needs
-          </div>
           <div className="text-center text-xl md:text-3xl text-gray-700 mb-6">
             One price{" "}
             <span className="font-bold text-amber-900">1,600 THB / 60 mins</span>
           </div>
+          <div className="text-center text-2xl md:text-3xl text-amber-900 font-semibold mb-2">
+            Tailored to Your Needs
+          </div>
+          
           <div className="text-center text-base md:text-lg text-gray-500 leading-relaxed">
             <span>
               B1 fl. East Side TRUE Digital Park 101
               <br />
               <span className="text-md">
-                Because you deserve to feel your best — every day
+                Feel free to reach us for more information and inquiries
+                <br />For promotion and something interesting
+                <br />please follow us on FB/IG: Matsenga wellness
               </span>
             </span>
           </div>
@@ -329,7 +351,9 @@ export default function MatsengaWellness() {
       Customer Reviews
     </h2>
     <p className="text-center text-gray-700 mb-10 text-base md:text-lg leading-relaxed">
-      Real feedback from our valued clients. Thank you for trusting us with your wellness journey!
+      Thank you for trusting us with your wellness journey !
+      <br />We truly appreciate your kind feedback.
+
     </p>
 
     <div className="relative flex items-center justify-center">

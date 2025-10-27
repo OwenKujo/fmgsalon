@@ -1,36 +1,90 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, Phone, Clock } from "lucide-react";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 const bannerImages = [
-  {
-    id: 1,
-    title: "Ferovere Matsenga",
-    description: "Professional hair repair and protection",
-    image: "/465623995_1059718609487585_6186430544580081574_n.png",
-  },
-  {
-    id: 2,
-    title: "Ferovere Matsenga",
-    description: "Smooth and frizz-free hair",
-    image: "/videoframe_2261.png",
-  },
-  {
-    id: 3,
-    title: "Ferovere Matsenga",
-    description: "Premium hair styling products",
-    image: "/videoframe_7525.png",
-  },
-  {
-    id: 4,
-    title: "Ferovere Matsenga",
-    description: "Expert coloring services",
-    image: "/videoframe_7682.png",
-  },
+  { id: 1, image: "/465623995_1059718609487585_6186430544580081574_n.png" },
+  { id: 2, image: "/videoframe_2261.png" },
+  { id: 3, image: "/videoframe_7525.png" },
+  { id: 4, image: "/videoframe_7682.png" },
 ];
 
 const Hero: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Branch slider for hero contact box
+  type Branch = {
+    id: string;
+    name: string;
+    addressLine: string;
+    city: string;
+    phone: string;
+    hours: string;
+  };
+
+  const heroBranches: Branch[] = [
+    {
+      id: 'silom',
+      name: 'FMG Wellness & Salon Silom Edge (3rd floor)',
+      addressLine: 'Silom Edge, 3rd Floor',
+      city: 'Bangkok, Thailand',
+      phone: '064 456 5145',
+      hours: 'Open Daily 11.00 AM - 09.00 PM',
+    },
+    {
+      id: 'true-digital',
+      name: 'FMG Wellness & Salon Studio',
+      addressLine: 'True Digital Park (B1 floor, East)',
+      city: 'Bangkok, Thailand',
+      phone: '086-456-5141',
+      hours: 'Open Daily 10.00 AM - 08.00 PM',
+    },
+  ];
+
+  const [branchIdx, setBranchIdx] = useState(0);
+  const selectedBranch = heroBranches[branchIdx];
+  const prevBranch = () => setBranchIdx(i => (i - 1 + heroBranches.length) % heroBranches.length);
+  const nextBranch = () => setBranchIdx(i => (i + 1) % heroBranches.length);
+
+  const HeroBranchCard: React.FC<{ branch: Branch }> = ({ branch }) => (
+    <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+      <h3 className="text-lg font-semibold text-gray-800">{branch.name}</h3>
+      <div className="h-1 w-20 mt-2 rounded bg-accent-beige"></div>
+
+      <div className="mt-4 space-y-4">
+        <div className="flex items-center">
+          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
+            <MapPin className="w-6 h-6 text-gray-800" />
+          </div>
+          <div>
+            <p className="text-gray-800 font-semibold">{branch.addressLine}</p>
+            <p className="text-gray-600 text-sm">{branch.city}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
+            <Phone className="w-6 h-6 text-gray-800" />
+          </div>
+          <div>
+            <p className="text-gray-800 font-semibold">Tel. {branch.phone}</p>
+            <p className="text-gray-600 text-sm">Call us for appointments</p>
+          </div>
+        </div>
+
+        <div className="flex items-center">
+          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
+            <Clock className="w-6 h-6 text-gray-800" />
+          </div>
+          <div>
+            <p className="text-gray-800 font-semibold">{branch.hours}</p>
+            <p className="text-gray-600 text-sm">7 days a week</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -49,6 +103,8 @@ const Hero: React.FC = () => {
     );
   };
 
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="relative">
       {/* Carousel */}
@@ -64,35 +120,35 @@ const Hero: React.FC = () => {
           >
             <img
               src={bannerImages[currentSlide].image}
-              alt={bannerImages[currentSlide].title}
+              alt={"banner"}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex items-center">
               <div className="px-6 md:px-16 text-white max-w-xl">
                 <motion.h2
-                  key={bannerImages[currentSlide].title}
+                  key={`banner-${bannerImages[currentSlide].id}-title`}
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6 }}
                   className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 drop-shadow"
                 >
-                  {bannerImages[currentSlide].title}
+                  {t(`banner.${bannerImages[currentSlide].id}.title`)}
                 </motion.h2>
                 <motion.p
-                  key={bannerImages[currentSlide].description}
+                  key={`banner-${bannerImages[currentSlide].id}-desc`}
                   initial={{ y: 30, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="text-lg md:text-2xl mb-6 opacity-90"
                 >
-                  {bannerImages[currentSlide].description}
+                  {t(`banner.${bannerImages[currentSlide].id}.description`)}
                 </motion.p>
                 <div className="flex gap-4">
                   <button className="px-8 py-3 rounded-full bg-accent-beige text-gray-900 font-semibold shadow-lg hover:scale-105 transition">
-                    BOOK NOW
+                    {t('hero.bookNow')}
                   </button>
                   <button className="px-8 py-3 rounded-full border border-white/80 text-white hover:bg-white/20 transition font-medium">
-                    VIEW SERVICES
+                    {t('hero.discover')}
                   </button>
                 </div>
               </div>
@@ -139,29 +195,26 @@ const Hero: React.FC = () => {
           {/* Left Side - Welcome Text */}
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 leading-tight">
-              Welcome to{" "}
+              {t('hero.welcome')} {" "}
               <span className="bg-gradient-to-r from-accent-beige via-yellow-200 to-orange-300 bg-clip-text text-transparent">
-                Ferovere Matsenga
+                {t('hero.brand')}
               </span>{" "}
-              Hair & Nails Salon
+              {t('hero.hairSalon')}
             </h1>
             <div className="w-20 h-1 bg-accent-beige mb-6 rounded-full"></div>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              เรามีบริการสระผม นวด สปา ทำทรงผม ย้อมสีผม ผลิตภัณฑ์คุณภาพสูง
-              คำแนะนำจากผู้เชี่ยวชาญ งานคุณภาพ ความพึงพอใจของลูกค้า และบริการ
-              Nails Salon
-            </p>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t('hero.subtitle1')}</p>
+
             <div className="flex gap-4">
               <button className="bg-accent-beige text-gray-800 px-8 py-4 rounded-full hover:bg-gray-100 transition-colors font-semibold shadow-lg text-lg">
-                BOOK NOW
+                {t('hero.bookNow')}
               </button>
               <button className="px-8 py-4 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-50 transition-colors font-medium text-lg">
-                CONTACT US
+                {t('hero.discover')}
               </button>
             </div>
           </div>
 
-          {/* Right Side - Contact Info */}
+          {/* Right Side - Sliding Contact Card (same as Contact component) */}
           <div className="bg-white/70 backdrop-blur-md p-10 rounded-3xl shadow-xl">
             <div className="text-center">
               <img
@@ -169,34 +222,71 @@ const Hero: React.FC = () => {
                 alt="FMG Logo"
                 className="mx-auto mb-6 w-48 md:w-64 object-contain"
               />
-              <p className="text-2xl font-semibold text-gray-800 mb-1">
-                Ferovere Matsenga
-              </p>
-              <p className="text-lg text-gray-600 mb-8">Hair & Nails Salon</p>
 
-              <div className="space-y-5 text-left">
-                <div className="flex items-center gap-3 group">
-                  <span className="bg-accent-beige/20 p-2 rounded-full group-hover:scale-110 transition">
-                    📍
-                  </span>
-                  <p className="text-gray-800 font-medium">
-                    Silom Edge (3rd floor)
-                  </p>
+              <div className="flex items-center justify-center mb-6">
+                <button
+                  onClick={() => setBranchIdx(i => (i - 1 + heroBranches.length) % heroBranches.length)}
+                  className="p-2 rounded-full bg-white border border-gray-200 shadow-sm mr-4"
+                  aria-label="Previous branch"
+                >
+                  <ChevronLeft className="w-5 h-5 text-gray-700" />
+                </button>
+
+                <div className="overflow-hidden w-full max-w-md">
+                  <div className="flex transition-transform duration-300 ease-in-out" style={{ transform: `translateX(-${branchIdx * 100}%)` }}>
+                    {heroBranches.map(b => (
+                      <div key={b.id} className="flex-shrink-0 w-full flex justify-center px-4">
+                        <div className="w-full max-w-md">
+                          <h3 className="text-lg font-semibold text-gray-800">{b.name}</h3>
+                          <div className="h-1 w-20 mt-2 rounded bg-accent-beige mb-4"></div>
+                          <div className="space-y-3 text-left">
+                            <div className="flex items-center">
+                              <div className="w-12 h-12 bg-accent-beige/80 rounded-full flex items-center justify-center mr-3">
+                                <MapPin className="w-5 h-5 text-gray-800" />
+                              </div>
+                              <div>
+                                <p className="text-gray-800 font-semibold">{b.addressLine}</p>
+                                <p className="text-gray-600 text-sm">{b.city}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center">
+                              <div className="w-12 h-12 bg-accent-beige/80 rounded-full flex items-center justify-center mr-3">
+                                <Phone className="w-5 h-5 text-gray-800" />
+                              </div>
+                              <div>
+                                <p className="text-gray-800 font-semibold">Tel. {b.phone}</p>
+                                <p className="text-gray-600 text-sm">Call us for appointments</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center">
+                              <div className="w-12 h-12 bg-accent-beige/80 rounded-full flex items-center justify-center mr-3">
+                                <Clock className="w-5 h-5 text-gray-800" />
+                              </div>
+                              <div>
+                                <p className="text-gray-800 font-semibold">{b.hours}</p>
+                                <p className="text-gray-600 text-sm">7 days a week</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center gap-3 group">
-                  <span className="bg-accent-beige/20 p-2 rounded-full group-hover:scale-110 transition">
-                    📞
-                  </span>
-                  <p className="text-gray-800 font-medium">Tel. 064 456 5145</p>
-                </div>
-                <div className="flex items-center gap-3 group">
-                  <span className="bg-accent-beige/20 p-2 rounded-full group-hover:scale-110 transition">
-                    🕒
-                  </span>
-                  <p className="text-gray-800 font-medium">
-                    Open Daily 10.00 AM - 10.00 PM
-                  </p>
-                </div>
+
+                <button
+                  onClick={() => setBranchIdx(i => (i + 1) % heroBranches.length)}
+                  className="p-2 rounded-full bg-white border border-gray-200 shadow-sm ml-4"
+                  aria-label="Next branch"
+                >
+                  <ChevronRight className="w-5 h-5 text-gray-700" />
+                </button>
+              </div>
+
+              <div className="mt-6">
+                <button className="px-10 py-4 rounded-full bg-accent-beige text-gray-800 font-semibold text-lg shadow-lg hover:bg-gray-100 transition">
+                  {t('hero.bookNow')}
+                </button>
               </div>
             </div>
           </div>

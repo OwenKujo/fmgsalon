@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
               href="/"
               className="text-gray-800 hover:text-gray-600 transition-colors font-medium"
             >
-              Home
+              FMG Salon Studio
             </a>
             <a
               href="/wellness"

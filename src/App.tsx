@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { MantineProvider } from '@mantine/core';
+import { LanguageProvider } from './i18n/LanguageProvider';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -18,9 +19,10 @@ import About from './app/about/about';
 function App() {
   return (
     <MantineProvider>
-      <Router>
-        <div className="App min-h-screen bg-primary-beige">
-          <Header />
+      <LanguageProvider>
+        <Router>
+          <div className="App min-h-screen bg-primary-beige">
+            <Header />
           <Routes>
             <Route path="/" element={
               <>
@@ -39,8 +41,9 @@ function App() {
             {/* Add more pages */}
           </Routes>
           <Footer />
-        </div>
-      </Router>
+          </div>
+        </Router>
+      </LanguageProvider>
     </MantineProvider>
   );
 }

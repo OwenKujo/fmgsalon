@@ -12,7 +12,6 @@ const services: Service[] = [
   { title: "", image: "/MENU-Group-03.jpg" },
   { title: "", image: "/MENU-Group-04.jpg" },
   { title: "", image: "/MENU-Group-05.jpg" },
-  { title: "", image: "/MENU-Group-06.jpg" },
 ];
 
 const VISIBLE = 3; // number of cards shown
@@ -52,10 +51,6 @@ export default function ServicesCarousel() {
       {/* Left: title block */}
       <div className="w-1/4 min-w-[240px] flex flex-col justify-center pl-16 pr-10 py-16">
         <h2 className="text-2xl font-bold mb-3">Our Services</h2>
-        <p className="text-gray-700/80 text-sm leading-relaxed">
-          เรามีบริการด้านการทำผมหลากหลาย <br />
-          และตอบสนองทุกการทำผมอย่างมั่นใจ
-        </p>
       </div>
 
       {/* Right: cards */}

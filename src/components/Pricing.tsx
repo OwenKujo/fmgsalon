@@ -6,17 +6,14 @@ const Pricing: React.FC = () => {
     { service: "HAIR CUT & BLOW DRY", price: "B 700 - 900", category: "Hair" },
     { service: "WASH & BLOW DRY", price: "B 300 - 700", category: "Hair" },
     { service: "HAIR COLOR", price: "B 2,500 - 5,500", category: "Hair" },
-    { service: "BLEACH / HIGHLIGHTS", price: "B 1,000 - 2,000", category: "Hair" },
+    { service: "BLEACH / HIGHLIGHTS", price: "B 1,500 - 3,500", category: "Hair" },
     { service: "PERM", price: "B 2,500 - 4,000", category: "Hair" },
     { service: "DIGITAL PERM", price: "B 4,500 - 7,500", category: "Hair" },
     { service: "REBONDING HAIR", price: "B 4,500 - 7,500", category: "Hair" },
     { service: "HAIR TREATMENT", price: "B 1,500 - 4,500", category: "Treatment" },
     { service: "SCALP TREATMENT", price: "B 2,500 - 4,000", category: "Treatment" },
-    { service: "KERATIN TREATMENT", price: "B 5,000 - 8,500", category: "Treatment" },
+    { service: "KERATIN TREATMENT", price: "B 3,500 - 8,500", category: "Treatment" },
     { service: "BRAZILIAN BLOWOUT", price: "B 5,500 - 8,500", category: "Treatment" },
-    { service: "POLISH", price: "B 200 - 400", category: "Nails" },
-    { service: "GEL POLISH", price: "B 399 - 790", category: "Nails" },
-    { service: "GEL NAIL ART", price: "50 UP", category: "Nails" },
   ];
 
   // Group services by category
@@ -48,7 +45,7 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* Pricing Grid */}
-        <div className="grid gap-10 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-2">
           {Object.entries(grouped).map(([category, services]) => (
             <div
               key={category}

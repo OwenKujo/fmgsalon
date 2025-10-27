@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Phone, Instagram, Facebook, Menu, X } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageProvider';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { lang, setLang, t } = useLanguage();
 
   return (
     <header className="bg-accent-beige shadow-sm sticky top-0 z-50">
@@ -11,29 +14,29 @@ const Header: React.FC = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <img 
-              src="/FMG-Logo-PNG-White-long-01_0-1 (1).png" 
+              src="/FMG_NEW-LOGO.png" 
               alt="FMG Logo" 
               className="h-12 w-auto"
             />
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
-              Home
+              {t('nav.home')}
             </a>
             <a href="/wellness" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
-              Matsenga Wellness
+              {t('nav.wellness')}
             </a>
             <a href="/blog" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
-              Blog
+              {t('nav.blog')}
             </a>
             <a href="/about" className="text-gray-800 hover:text-gray-600 transition-colors font-medium">
-              About Us
+              {t('nav.about')}
             </a>
           </nav>
 
-          {/* Social Media & Contact */}
+          {/* Social Media, Contact & Language */}
           <div className="hidden md:flex items-center space-x-4">
             <a href="https://wa.me/6645645145" className="text-gray-800 hover:text-green-600 transition-colors">
               <Phone size={20} />
@@ -44,8 +47,27 @@ const Header: React.FC = () => {
             <a href="https://facebook.com" className="text-gray-800 hover:text-blue-600 transition-colors">
               <Facebook size={20} />
             </a>
+
+            {/* Language toggle buttons */}
+            <div className="flex items-center space-x-1 border rounded-md overflow-hidden">
+              <button
+                onClick={() => setLang('th')}
+                className={`px-3 py-1 text-sm ${lang === 'th' ? 'bg-amber-900 text-white' : 'text-gray-800 bg-white'}`}
+                aria-pressed={lang === 'th'}
+              >
+                TH
+              </button>
+              <button
+                onClick={() => setLang('en')}
+                className={`px-3 py-1 text-sm ${lang === 'en' ? 'bg-amber-900 text-white' : 'text-gray-800 bg-white'}`}
+                aria-pressed={lang === 'en'}
+              >
+                EN
+              </button>
+            </div>
+
             <button className="bg-primary-beige text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors text-sm font-medium">
-              โทรออกเลย
+              {t('header.call')}
             </button>
           </div>
 
@@ -65,16 +87,16 @@ const Header: React.FC = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-beige rounded-md mt-2">
               <a href="/" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
-                Home
+                {t('nav.home')}
               </a>
               <a href="/wellness" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
-                Matsenga Wellness
+                {t('nav.wellness')}
               </a>
               <a href="/blog" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
-                Blog
+                {t('nav.blog')}
               </a>
               <a href="/about" className="block px-3 py-2 text-gray-800 hover:text-gray-600 transition-colors font-medium">
-                About Us
+                {t('nav.about')}
               </a>
               <div className="flex items-center space-x-4 px-3 py-2">
                 <a href="https://wa.me/6645645145" className="text-gray-800 hover:text-green-600 transition-colors">
@@ -86,6 +108,11 @@ const Header: React.FC = () => {
                 <a href="https://facebook.com" className="text-gray-800 hover:text-blue-600 transition-colors">
                   <Facebook size={20} />
                 </a>
+                {/* Mobile language selector */}
+                <div className="ml-2 flex items-center space-x-1">
+                  <button onClick={() => setLang('th')} className={`px-2 py-1 text-sm ${lang === 'th' ? 'bg-amber-900 text-white' : 'text-gray-800 bg-white'} rounded-sm`}>TH</button>
+                  <button onClick={() => setLang('en')} className={`px-2 py-1 text-sm ${lang === 'en' ? 'bg-amber-900 text-white' : 'text-gray-800 bg-white'} rounded-sm`}>EN</button>
+                </div>
               </div>
             </div>
           </div>

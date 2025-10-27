@@ -79,7 +79,7 @@ export default function About() {
           <h2 className="text-2xl font-semibold mb-6">Visit Us</h2>
           <p className="text-gray-700 mb-4">
             <strong>FMG – Ferovere Matsenga Hair Salon</strong><br />
-            Silom Edge (3rd floor) · Open Daily 10.00 AM – 10.00 PM
+            Silom Edge (3rd floor) · Open Daily 11.00 AM – 09.00 PM
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <div className="flex items-center gap-2 text-gray-700">

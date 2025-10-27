@@ -331,6 +331,7 @@ export default function MatsengaWellness() {
               <br />
               <span className="text-md">
                 Feel free to reach us for more information and inquiries
+                <br />Line ID: @172kadad | Tel: 086-456-5141
                 <br />For promotion and something interesting
                 <br />please follow us on FB/IG: Matsenga wellness
               </span>

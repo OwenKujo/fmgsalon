@@ -43,48 +43,7 @@ const Hero: React.FC = () => {
   ];
 
   const [branchIdx, setBranchIdx] = useState(0);
-  const selectedBranch = heroBranches[branchIdx];
-  const prevBranch = () => setBranchIdx(i => (i - 1 + heroBranches.length) % heroBranches.length);
-  const nextBranch = () => setBranchIdx(i => (i + 1) % heroBranches.length);
-
-  const HeroBranchCard: React.FC<{ branch: Branch }> = ({ branch }) => (
-    <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-800">{branch.name}</h3>
-      <div className="h-1 w-20 mt-2 rounded bg-accent-beige"></div>
-
-      <div className="mt-4 space-y-4">
-        <div className="flex items-center">
-          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
-            <MapPin className="w-6 h-6 text-gray-800" />
-          </div>
-          <div>
-            <p className="text-gray-800 font-semibold">{branch.addressLine}</p>
-            <p className="text-gray-600 text-sm">{branch.city}</p>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
-            <Phone className="w-6 h-6 text-gray-800" />
-          </div>
-          <div>
-            <p className="text-gray-800 font-semibold">Tel. {branch.phone}</p>
-            <p className="text-gray-600 text-sm">Call us for appointments</p>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-          <div className="w-14 h-14 bg-accent-beige/80 rounded-full flex items-center justify-center mr-4 shadow-md">
-            <Clock className="w-6 h-6 text-gray-800" />
-          </div>
-          <div>
-            <p className="text-gray-800 font-semibold">{branch.hours}</p>
-            <p className="text-gray-600 text-sm">7 days a week</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  
 
   useEffect(() => {
     const timer = setInterval(() => {

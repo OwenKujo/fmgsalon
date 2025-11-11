@@ -21,30 +21,38 @@ export default function EditBlog() {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [reloadCounter, setReloadCounter] = useState(0);
 
   // Base API URL helper
   const API_BASE =
     process.env.REACT_APP_API_URL ||
     (process.env.NODE_ENV === "development" ? "http://localhost:4000" : "");
 
-  const fetchBlog = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch(`${API_BASE}/api/blog/${slug}`);
-      if (!res.ok) throw new Error("Blog not found");
-      const data: Blog = await res.json();
-      setBlog(data);
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    if (slug) fetchBlog();
-  }, [slug]);
+    if (!slug) return;
+    let mounted = true;
+
+    const fetchBlog = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const res = await fetch(`${API_BASE}/api/blog/${slug}`);
+        if (!res.ok) throw new Error("Blog not found");
+        const data: Blog = await res.json();
+        if (mounted) setBlog(data);
+      } catch (err) {
+        if (mounted) setError((err as Error).message);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    fetchBlog();
+
+    return () => {
+      mounted = false;
+    };
+  }, [slug, API_BASE, reloadCounter]);
 
   // Skeleton Loader
   if (loading) {
@@ -70,7 +78,7 @@ export default function EditBlog() {
       <div className="pt-[60px] flex flex-col items-center py-20 text-red-500 space-y-4">
         <p>{error}</p>
         <button
-          onClick={fetchBlog}
+            onClick={() => setReloadCounter((c) => c + 1)}
           className="px-4 py-2 bg-[#D4B595] text-white rounded hover:bg-[#c4a27e] transition"
         >
           Retry

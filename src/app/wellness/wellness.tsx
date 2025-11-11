@@ -48,8 +48,8 @@ export default function MatsengaWellness() {
       ],
     },
     {
-      title: "Office Syndrome ",
-      subtitle: "นวดรักษาอาการออฟฟิศซินโดรม",
+      title: "Office Syndrome & Migraine Relief",
+      subtitle: "นวดรักษาอาการออฟฟิศซินโดรมและไมเกรน",
       description:
         "Targeted therapy for release and gentle mobilization relieve stiffness and reduce tension headaches.",
       image: "/office.jpg",
@@ -60,7 +60,7 @@ export default function MatsengaWellness() {
       ],
     },
     {
-      title: "Headtherapeutic Massage",
+      title: "Head Therapeutic Massage",
       subtitle: "นวดศีรษะบำบัด",
       description:
         "Targeted head massage to release tension and relieve migraine pain.",
@@ -97,12 +97,19 @@ export default function MatsengaWellness() {
   ];
 
   // Service carousel state
+  // For the top "Our Signature Treatments" carousel we exclude the
+  // 'Balance Body Alignment Treatment' entry while keeping it in the
+  // full `services` array used later in the personalized section.
+  const slideServices = services.filter(
+    (s) => s.title !== "Balance Body Alignment Treatment"
+  );
+
   const [serviceIdx, setServiceIdx] = useState(0);
   const prevService = () => {
-    setServiceIdx((i) => (i - 1 + services.length) % services.length);
+    setServiceIdx((i) => (i - 1 + slideServices.length) % slideServices.length);
   };
   const nextService = () => {
-    setServiceIdx((i) => (i + 1) % services.length);
+    setServiceIdx((i) => (i + 1) % slideServices.length);
   };
 
   // Images for the left-panel slider in the two-column section
@@ -281,13 +288,15 @@ export default function MatsengaWellness() {
 
             {/* Slides */}
             <div className="w-full overflow-hidden relative h-[520px] md:h-[600px]">
-              {services.map((service, idx) => {
+              {slideServices.map((service, idx) => {
                 let position = "translate-x-full opacity-0";
                 if (idx === serviceIdx)
                   position = "translate-x-0 opacity-100 z-10";
-                else if ((idx === (serviceIdx - 1 + services.length) % services.length))
+                else if (
+                  idx === (serviceIdx - 1 + slideServices.length) % slideServices.length
+                )
                   position = "-translate-x-full opacity-0 z-0";
-                else if (idx === (serviceIdx + 1) % services.length)
+                else if (idx === (serviceIdx + 1) % slideServices.length)
                   position = "translate-x-full opacity-0 z-0";
 
                 return (
@@ -303,7 +312,7 @@ export default function MatsengaWellness() {
                       />
                     </div>
                     <div className="md:w-1/2 w-full p-6 md:p-8 text-center md:text-left">
-                      <h3 className="text-2xl md:text-3xl font-bold text-amber-900 mb-2">
+                      <h3 className="text-xl md:text-2xl font-bold text-amber-900 mb-2">
                         {service.title}
                       </h3>
                       <div className="text-lg text-gray-700 mb-2">{service.subtitle}</div>

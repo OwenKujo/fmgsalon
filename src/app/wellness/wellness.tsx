@@ -132,7 +132,8 @@ export default function MatsengaWellness() {
   const [reviewSectionRef, reviewSectionVisible] = useSlideIn();
 
   // Review carousel state
-  const reviewImages = [1, 2, 3, 4, 5, 6].map((n) => `/review${n}.jpg`);
+  // Use public images named r1.jpg ... r7.jpg
+  const reviewImages = [1, 2, 3, 4, 5, 6, 7].map((n) => `/r${n}.jpg`);
   const [reviewIdx, setReviewIdx] = useState(0);
   const [reviewDir, setReviewDir] = useState<"left" | "right" | null>(null);
 
@@ -230,7 +231,16 @@ export default function MatsengaWellness() {
             and every touch heals”
           </h2>
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6">
-            ...In every session begins with a one-on-one health consultation to understand your body’s needs and concerns. Say goodbye to office syndrome, muscle tightness, and sports-related tension — we use precise pressure at signal points and targeted techniques to unlock tension safely. Our hygienic, soothing space is curated for total relaxation (@matsenga.well).
+            ...In every session begins with a one-on-one health consultation to understand your body’s needs and concerns. Say goodbye to office syndrome, muscle tightness, and sports-related tension — we use precise pressure at signal points and targeted techniques to unlock tension safely. Our hygienic, soothing space is curated for total relaxation {" "}
+            <a
+              href="https://www.instagram.com/matsenga.well"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-900 underline"
+            >
+              (@matsenga.well)
+            </a>
+            .
           </p>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             “นวดแล้วหาย… ไม่ใช่แค่นวดแล้วสบาย” เพราะทุกเคสได้รับการดูแลโดยแพทย์แผนไทยประยุกต์ ด้วยเทคนิคเฉพาะที่ตรงจุด เพื่อผลลัพธ์ที่สัมผัสได้จริง

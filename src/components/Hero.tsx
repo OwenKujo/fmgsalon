@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
   const heroBranches: Branch[] = [
     {
       id: 'silom',
-      name: 'FMG Wellness & Salon Silom Edge (3rd floor)',
+      name: 'FMG Wellness',
       addressLine: 'Silom Edge, 3rd Floor',
       city: 'Bangkok, Thailand',
       phone: '064 456 5145',

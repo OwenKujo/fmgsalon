@@ -5,7 +5,11 @@ import { useLanguage } from "../i18n/LanguageProvider";
 
 // Use a single banner photo for the hero carousel
 const bannerImages = [
-  { id: 1, image: "/thair1.jpg" }
+  { id: 1, image: "/thair1.jpg" },
+  { id: 2, image: "/465623995_1059718609487585_6186430544580081574_n.png" },
+  { id: 3, image: "/videoframe_2261.png" },
+  { id: 4, image: "/videoframe_7525.png" },
+  { id: 5, image: "/videoframe_7682.png" },
 ];
 
 const Hero: React.FC = () => {

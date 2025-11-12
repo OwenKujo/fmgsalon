@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, MapPin, Phone, Clock } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageProvider";
 
+// Use a single banner photo for the hero carousel
 const bannerImages = [
-  { id: 1, image: "/465623995_1059718609487585_6186430544580081574_n.png" },
-  { id: 2, image: "/videoframe_2261.png" },
-  { id: 3, image: "/videoframe_7525.png" },
-  { id: 4, image: "/videoframe_7682.png" },
+  { id: 1, image: "/thair1.jpg" }
 ];
 
 const Hero: React.FC = () => {
@@ -26,7 +24,7 @@ const Hero: React.FC = () => {
   const heroBranches: Branch[] = [
     {
       id: 'silom',
-      name: 'FMG Wellness',
+      name: 'FMG Hair Salon',
       addressLine: 'Silom Edge, 3rd Floor',
       city: 'Bangkok, Thailand',
       phone: '064 456 5145',

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 import { Instagram, Facebook, Twitter, X } from "lucide-react";
 
 export default function BlogDetail() {
   const { slug } = useParams();
+  const location = useLocation();
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -52,8 +54,23 @@ export default function BlogDetail() {
   if (error) return <div className="pt-[60px] text-center py-20 text-red-500">{error}</div>;
   if (!blog) return null;
 
+  const siteTitle = 'FMG Salon & Wellness';
+  const siteOrigin = process.env.REACT_APP_SITE_URL || window.location.origin;
+  const metaTitle = blog.metaTitle || blog.title || siteTitle;
+  const metaDescription = blog.metaDescription || blog.excerpt || '';
+  const ogImage = blog.image || blog.ogImage || '';
+  const canonical = blog.canonical || `${siteOrigin}${location.pathname}`;
+
   return (
     <div className="pt-[60px] bg-[#f9f7f3] min-h-screen">
+      <Helmet>
+        <title>{metaTitle ? `${metaTitle} — ${siteTitle}` : siteTitle}</title>
+        {metaDescription && <meta name="description" content={metaDescription} />}
+        {metaTitle && <meta property="og:title" content={metaTitle} />}
+        {metaDescription && <meta property="og:description" content={metaDescription} />}
+        {ogImage && <meta property="og:image" content={ogImage} />}
+        {canonical && <link rel="canonical" href={canonical} />}
+      </Helmet>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <Link to="/blog" className="text-[#D4B595] hover:underline text-sm mb-4 inline-block">

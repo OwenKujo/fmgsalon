@@ -39,7 +39,7 @@ export default function AdminBlogList() {
   }, []);
 
   const handleDelete = async (slug: string) => {
-    if (!window.confirm("Are you sure you want to delete this blog post?"))
+    if (!window.confirm("แน่ใจหรือไม่ว่าต้องการลบบทความนี้?"))
       return;
     try {
       const API_BASE =
@@ -63,30 +63,36 @@ export default function AdminBlogList() {
       <div className="max-w-5xl mx-auto bg-white rounded-lg shadow p-8 mt-10">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-800">
-            Manage Blog Posts
-          </h1>
-          <Link
-            to="/blog/admin/create"
-            className="bg-[#D4B595] text-white px-4 py-2 rounded-md shadow hover:bg-[#C4A585] transition"
-          >
-            + New Post
-          </Link>
+          <h1 className="text-2xl font-bold text-gray-800">จัดการบทความ</h1>
+          <div className="flex gap-3">
+            <Link
+              to="/blog/admin/seo"
+              className="px-3 py-2 border rounded-md text-sm"
+            >
+              จัดการ SEO
+            </Link>
+            <Link
+              to="/blog/admin/create"
+              className="bg-[#D4B595] text-white px-4 py-2 rounded-md shadow hover:bg-[#C4A585] transition"
+            >
+              + บทความใหม่
+            </Link>
+          </div>
         </div>
 
         {/* States */}
         {loading ? (
-          <div className="text-center py-10 text-gray-500">Loading...</div>
+          <div className="text-center py-10 text-gray-500">กำลังโหลด...</div>
         ) : error ? (
           <div className="text-center py-10 text-red-500">{error}</div>
         ) : blogs.length === 0 ? (
           <div className="text-center py-10 text-gray-500">
-            No blog posts found. <br />
+            ยังไม่มีบทความ <br />
             <Link
               to="/blog/admin/create"
               className="text-[#D4B595] hover:underline"
             >
-              Create your first post
+              สร้างบทความแรกของคุณ
             </Link>
           </div>
         ) : (
@@ -95,11 +101,11 @@ export default function AdminBlogList() {
             <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-gray-100 text-sm text-gray-700">
-                  <th className="p-3 text-left">Title</th>
+                  <th className="p-3 text-left">หัวข้อ</th>
                   <th className="p-3 text-left">Slug</th>
-                  <th className="p-3 text-left">Date</th>
-                  <th className="p-3 text-left">Status</th>
-                  <th className="p-3 text-center">Actions</th>
+                  <th className="p-3 text-left">วันที่</th>
+                  <th className="p-3 text-left">สถานะ</th>
+                  <th className="p-3 text-center">การดำเนินการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,13 +137,13 @@ export default function AdminBlogList() {
                         className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 transition"
                         onClick={() => navigate(`/blog/admin/edit/${blog.slug}`)}
                       >
-                        Edit
+                        แก้ไข
                       </button>
                       <button
                         className="bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600 transition"
                         onClick={() => handleDelete(blog.slug)}
                       >
-                        Delete
+                        ลบ
                       </button>
                     </td>
                   </tr>

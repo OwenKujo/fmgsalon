@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import blogRoutes from "./routes/blog.js";
 import uploadRoutes from "./routes/upload.js";
+import seoRoutes from "./routes/seo.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/blog", blogRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/seo", seoRoutes);
 
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/fmgsalon";

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { MantineProvider } from '@mantine/core';
 import { LanguageProvider } from './i18n/LanguageProvider';
+import { HelmetProvider } from 'react-helmet-async';
+import Seo from './seo/Seo';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -19,10 +21,12 @@ import About from './app/about/about';
 function App() {
   return (
     <MantineProvider>
-      <LanguageProvider>
-        <Router>
-          <div className="App min-h-screen bg-primary-beige">
-            <Header />
+      <HelmetProvider>
+        <LanguageProvider>
+          <Router>
+            <div className="App min-h-screen bg-primary-beige">
+              <Seo />
+              <Header />
           <Routes>
             <Route path="/" element={
               <>
@@ -44,6 +48,7 @@ function App() {
           </div>
         </Router>
       </LanguageProvider>
+      </HelmetProvider>
     </MantineProvider>
   );
 }

@@ -105,9 +105,9 @@ export default function EditBlog() {
           onClick={() => navigate("/blog/admin")}
           className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
         >
-          ← Go Back
+          ← กลับ
         </button>
-        <h1 className="text-xl font-bold text-gray-800">Edit Blog Post</h1>
+        <h1 className="text-xl font-bold text-gray-800">แก้ไขบทความ</h1>
       </div>
 
       <BlogForm

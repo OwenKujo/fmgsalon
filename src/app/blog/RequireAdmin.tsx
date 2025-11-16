@@ -21,7 +21,7 @@ export default function RequireAdmin({ children }: { children: React.ReactNode }
       setAdminPass(input);
       setError("");
     } else {
-      setError("Incorrect password");
+      setError("รหัสผ่านไม่ถูกต้อง");
     }
   };
 
@@ -29,12 +29,12 @@ export default function RequireAdmin({ children }: { children: React.ReactNode }
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f9f7f3]">
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow w-full max-w-xs space-y-4">
-          <h2 className="text-xl font-bold mb-2">Admin Login</h2>
+          <h2 className="text-xl font-bold mb-2">เข้าสู่ระบบผู้ดูแล</h2>
           <input
             type="password"
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Enter admin password"
+            placeholder="ใส่รหัสผ่านผู้ดูแล"
             className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-[#D4B595]"
             autoFocus
           />
@@ -43,7 +43,7 @@ export default function RequireAdmin({ children }: { children: React.ReactNode }
             type="submit"
             className="w-full bg-[#D4B595] hover:bg-[#c4a27e] text-white py-2 rounded font-semibold"
           >
-            Login
+            เข้าสู่ระบบ
           </button>
         </form>
       </div>

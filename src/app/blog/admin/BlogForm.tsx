@@ -31,6 +31,73 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
   const [newTag, setNewTag] = useState("");
   const [newCategory, setNewCategory] = useState("");
 
+  // Keyboard helpers: add tag/category on Enter or comma, support paste of CSVs,
+  // and allow Backspace to pull last tag/category into the input for quick edit.
+  const handleAddTagFromInput = (value?: string) => {
+    const v = (value ?? newTag).trim().replace(/,$/, "");
+    if (!v) return;
+    const parts = v.split(/\s*,\s*/).map((p) => p.trim()).filter(Boolean);
+    const toAdd = parts.filter((p) => !tags.includes(p));
+    if (toAdd.length) {
+      setTags((t) => [...t, ...toAdd]);
+    }
+    setNewTag("");
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      handleAddTagFromInput();
+    } else if (e.key === "Backspace" && !newTag && tags.length) {
+      // Move last tag back into the input for quick edit
+      const last = tags[tags.length - 1];
+      setTags((t) => t.slice(0, -1));
+      setNewTag(last);
+    }
+  };
+
+  const handleTagPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const paste = e.clipboardData.getData("text");
+    if (!paste) return;
+    const parts = paste.split(/[,\n\r]+/).map((p) => p.trim()).filter(Boolean);
+    const toAdd = parts.filter((p) => !tags.includes(p));
+    if (toAdd.length) setTags((t) => [...t, ...toAdd]);
+    e.preventDefault();
+    setNewTag("");
+  };
+
+  const handleAddCategoryFromInput = (value?: string) => {
+    const v = (value ?? newCategory).trim().replace(/,$/, "");
+    if (!v) return;
+    const parts = v.split(/\s*,\s*/).map((p) => p.trim()).filter(Boolean);
+    const toAdd = parts.filter((p) => !categories.includes(p));
+    if (toAdd.length) {
+      setCategories((c) => [...c, ...toAdd]);
+    }
+    setNewCategory("");
+  };
+
+  const handleCategoryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      handleAddCategoryFromInput();
+    } else if (e.key === "Backspace" && !newCategory && categories.length) {
+      const last = categories[categories.length - 1];
+      setCategories((c) => c.slice(0, -1));
+      setNewCategory(last);
+    }
+  };
+
+  const handleCategoryPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const paste = e.clipboardData.getData("text");
+    if (!paste) return;
+    const parts = paste.split(/[,\n\r]+/).map((p) => p.trim()).filter(Boolean);
+    const toAdd = parts.filter((p) => !categories.includes(p));
+    if (toAdd.length) setCategories((c) => [...c, ...toAdd]);
+    e.preventDefault();
+    setNewCategory("");
+  };
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -50,7 +117,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
           method: "POST",
           body: formData,
         });
-        if (!res.ok) throw new Error("Image upload failed");
+  if (!res.ok) throw new Error("การอัปโหลดรูปไม่สำเร็จ");
         const data = await res.json();
         imageUrl = data.url;
       }
@@ -80,9 +147,9 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
       });
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Failed to save blog post");
+        throw new Error(data.error || "การบันทึกบทความไม่สำเร็จ");
       }
-      setSuccess("Blog post saved successfully!");
+      setSuccess("บันทึกบทความเรียบร้อยแล้ว!");
       // Optionally clear form or redirect
     } catch (err: any) {
       setError(err.message);
@@ -112,19 +179,19 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
     >
       <div className="bg-white shadow-lg rounded-2xl border p-6 space-y-6">
         <h2 className="text-2xl font-bold">
-          {mode === "edit" ? "Edit Blog" : "Create New Blog"}
+          {mode === "edit" ? "แก้ไขบทความ" : "สร้างบทความใหม่"}
         </h2>
 
         {/* Title */}
         <div>
-          <label className="block text-sm font-medium mb-1">Title</label>
+          <label className="block text-sm font-medium mb-1">หัวข้อ</label>
           <input
             type="text"
             value={title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setTitle(e.target.value)
             }
-            placeholder="Enter blog title"
+            placeholder="กรอกหัวข้อบทความ"
             required
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#D4B595]"
           />
@@ -132,13 +199,13 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Excerpt */}
         <div>
-          <label className="block text-sm font-medium mb-1">Excerpt</label>
+          <label className="block text-sm font-medium mb-1">สรุปย่อ</label>
           <textarea
             value={excerpt}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setExcerpt(e.target.value)
             }
-            placeholder="Short summary..."
+            placeholder="สรุปสั้น ๆ..."
             rows={3}
             className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#D4B595]"
           />
@@ -146,13 +213,13 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Content */}
         <div>
-          <label className="block text-sm font-medium mb-1">Content</label>
+          <label className="block text-sm font-medium mb-1">เนื้อหา</label>
           <textarea
             value={content}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setContent(e.target.value)
             }
-            placeholder="Write your blog content here..."
+            placeholder="เขียนเนื้อหาของคุณที่นี่..."
             rows={10}
             required
             className="w-full px-3 py-2 border rounded-lg resize-y focus:ring-2 focus:ring-[#D4B595]"
@@ -161,7 +228,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Image Upload */}
         <div>
-          <label className="block text-sm font-medium mb-1">Cover Image</label>
+          <label className="block text-sm font-medium mb-1">รูปปก</label>
           <div className="flex items-center gap-4">
             <input
               type="file"
@@ -191,7 +258,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Tags */}
         <div>
-          <label className="block text-sm font-medium mb-1">Tags</label>
+          <label className="block text-sm font-medium mb-1">แท็ก</label>
           <div className="flex gap-2 mb-2">
             <input
               type="text"
@@ -199,7 +266,9 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewTag(e.target.value)
               }
-              placeholder="Add tag"
+              onKeyDown={handleTagKeyDown}
+              onPaste={handleTagPaste}
+              placeholder="เพิ่มแท็ก (กด Enter หรือ , เพื่อเพิ่ม)"
               className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#D4B595]"
             />
             <button
@@ -207,7 +276,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
               onClick={handleAddTag}
               className="px-4 py-2 bg-[#D4B595] text-white rounded-lg hover:bg-[#c4a27e]"
             >
-              Add
+              เพิ่ม
             </button>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -225,7 +294,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Categories */}
         <div>
-          <label className="block text-sm font-medium mb-1">Categories</label>
+          <label className="block text-sm font-medium mb-1">หมวดหมู่</label>
           <div className="flex gap-2 mb-2">
             <input
               type="text"
@@ -233,7 +302,9 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewCategory(e.target.value)
               }
-              placeholder="Add category"
+              onKeyDown={handleCategoryKeyDown}
+              onPaste={handleCategoryPaste}
+              placeholder="เพิ่มหมวดหมู่ (กด Enter หรือ , เพื่อเพิ่ม)"
               className="flex-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#D4B595]"
             />
             <button
@@ -241,7 +312,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
               onClick={handleAddCategory}
               className="px-4 py-2 bg-[#D4B595] text-white rounded-lg hover:bg-[#c4a27e]"
             >
-              Add
+              เพิ่ม
             </button>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -261,7 +332,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
 
         {/* Date */}
         <div>
-          <label className="block text-sm font-medium mb-1">Date</label>
+          <label className="block text-sm font-medium mb-1">วันที่</label>
           <input
             type="date"
             value={date}
@@ -281,7 +352,7 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
           className="bg-[#D4B595] hover:bg-[#c4a27e] px-8 py-2 rounded-lg text-white text-lg font-semibold shadow"
           disabled={loading}
         >
-          {loading ? "Saving..." : mode === "edit" ? "Save Changes" : "Create Blog"}
+          {loading ? "กำลังบันทึก..." : mode === "edit" ? "บันทึกการเปลี่ยนแปลง" : "สร้างบทความ"}
         </button>
       </div>
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}

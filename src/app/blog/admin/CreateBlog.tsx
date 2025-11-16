@@ -10,7 +10,7 @@ export default function CreateBlog() {
           to="/blog/admin"
           className="text-[#D4B595] hover:underline text-sm mb-4 inline-block"
         >
-          ← Back to Admin
+          ← กลับไปยังหน้าผู้ดูแล
         </Link>
       </div>
       <BlogForm mode="create" />

@@ -307,24 +307,24 @@ export default function MatsengaWellness() {
                     key={idx}
                     className={`absolute top-0 left-0 w-full h-full flex flex-col md:flex-row items-center bg-white rounded-xl shadow-lg transition-all duration-500 ease-in-out ${position}`}
                   >
-                    <div className="md:w-1/2 w-full flex justify-center items-centerp-2 md:p-2 rounded-full overflow-hidden">
+                    <div className="hidden md:flex md:w-1/2 w-full justify-center items-center p-2 md:p-2 rounded-full overflow-hidden">
                       <img
                         src={service.image}
                         alt={service.title}
                         className="rounded-full object-cover w-72 h-72 md:w-96 md:h-96 transition-all duration-500"
                       />
                     </div>
-                    <div className="md:w-1/2 w-full p-6 md:p-8 text-center md:text-left">
+                    <div className="md:w-1/2 w-full p-6 md:p-8 text-center md:text-left flex flex-col h-full">
                       <h3 className="text-xl md:text-2xl font-bold text-amber-900 mb-2">
                         {service.title}
                       </h3>
                       <div className="text-lg text-gray-700 mb-2">{service.subtitle}</div>
                       <p className="text-base text-gray-700 mb-6">{service.description}</p>
-                      <div className="flex items-center justify-center gap-4 border-t border-b py-6 mb-6 flex-wrap">
+                      <div className="flex items-center justify-center gap-4 border-t border-b py-6 mb-6 flex-wrap max-h-56 overflow-auto sm:max-h-full">
                         {service.options?.map((opt, k) => (
                           <div
                             key={k}
-                            className="min-w-[220px] md:min-w-[320px] bg-white/95 rounded-2xl p-3 md:p-4 shadow-sm border border-gray-100 flex items-center justify-between gap-4 hover:shadow-md transition cursor-default"
+                            className="w-full sm:min-w-[220px] md:min-w-[320px] bg-white/95 rounded-2xl p-3 md:p-4 shadow-sm border border-gray-100 flex items-center justify-between gap-4 hover:shadow-md transition cursor-default"
                           >
                             <div className="text-left">
                               <div className="text-sm text-gray-500">{opt.duration}</div>
@@ -336,7 +336,7 @@ export default function MatsengaWellness() {
                           </div>
                         ))}
                       </div>
-                      <button className="bg-red-700 hover:bg-red-800 text-white px-6 md:px-8 py-3 rounded font-semibold">
+                      <button className="bg-red-700 hover:bg-red-800 text-white px-6 md:px-8 py-3 rounded font-semibold mt-auto self-center md:self-start">
                         BOOKING
                       </button>
                     </div>

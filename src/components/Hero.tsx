@@ -6,10 +6,9 @@ import { useLanguage } from "../i18n/LanguageProvider";
 // Use a single banner photo for the hero carousel
 const bannerImages = [
   { id: 1, image: "/thair1.jpg" },
-  { id: 2, image: "/465623995_1059718609487585_6186430544580081574_n.png" },
-  { id: 3, image: "/videoframe_2261.png" },
-  { id: 4, image: "/videoframe_7525.png" },
-  { id: 5, image: "/videoframe_7682.png" },
+  { id: 2, image: "/videoframe_2261.png" },
+  { id: 3, image: "/videoframe_7525.png" },
+  { id: 4, image: "/videoframe_7682.png" },
 ];
 
 const Hero: React.FC = () => {
@@ -65,6 +64,26 @@ const Hero: React.FC = () => {
   };
 
   const { t } = useLanguage();
+  const LINE_ID = '@172kadad';
+  const LINE_URL = `https://line.me/R/ti/p/${LINE_ID}`;
+  const [copiedLine, setCopiedLine] = useState(false);
+
+  const handleBookNow = () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(LINE_ID).catch(() => {});
+      }
+    } catch (e) {
+      // ignore clipboard errors
+    }
+    try {
+      window.open(LINE_URL, '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      // ignore popup errors
+    }
+    setCopiedLine(true);
+    setTimeout(() => setCopiedLine(false), 3000);
+  };
 
   return (
     <section id="home" className="relative">
@@ -104,10 +123,11 @@ const Hero: React.FC = () => {
                 >
                   {t(`banner.${bannerImages[currentSlide].id}.description`)}
                 </motion.p>
-                <div className="flex gap-4">
-                  <button className="px-8 py-3 rounded-full bg-accent-beige text-gray-900 font-semibold shadow-lg hover:scale-105 transition">
+                <div className="flex gap-4 items-center">
+                  <button onClick={handleBookNow} className="px-8 py-3 rounded-full bg-accent-beige text-gray-900 font-semibold shadow-lg hover:scale-105 transition">
                     {t('hero.bookNow')}
                   </button>
+                  {copiedLine && <span className="text-sm ml-2 text-yellow-300">Line ID คัดลอกแล้ว: {LINE_ID}</span>}
                   <button className="px-8 py-3 rounded-full border border-white/80 text-white hover:bg-white/20 transition font-medium">
                     {t('hero.discover')}
                   </button>
@@ -165,10 +185,11 @@ const Hero: React.FC = () => {
             <div className="w-20 h-1 bg-accent-beige mb-6 rounded-full"></div>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">{t('hero.subtitle1')}</p>
 
-            <div className="flex gap-4">
-              <button className="bg-accent-beige text-gray-800 px-8 py-4 rounded-full hover:bg-gray-100 transition-colors font-semibold shadow-lg text-lg">
+            <div className="flex gap-4 items-center">
+              <button onClick={handleBookNow} className="bg-accent-beige text-gray-800 px-8 py-4 rounded-full hover:bg-gray-100 transition-colors font-semibold shadow-lg text-lg">
                 {t('hero.bookNow')}
               </button>
+              {copiedLine && <span className="text-sm text-gray-600 ml-2">Line ID คัดลอกแล้ว: {LINE_ID}</span>}
               <button className="px-8 py-4 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-50 transition-colors font-medium text-lg">
                 {t('hero.discover')}
               </button>
@@ -245,9 +266,10 @@ const Hero: React.FC = () => {
               </div>
 
               <div className="mt-6">
-                <button className="px-10 py-4 rounded-full bg-accent-beige text-gray-800 font-semibold text-lg shadow-lg hover:bg-gray-100 transition">
+                <button onClick={handleBookNow} className="px-10 py-4 rounded-full bg-accent-beige text-gray-800 font-semibold text-lg shadow-lg hover:bg-gray-100 transition">
                   {t('hero.bookNow')}
                 </button>
+                {copiedLine && <div className="mt-2 text-sm text-gray-700">Line ID คัดลอกแล้ว: {LINE_ID}</div>}
               </div>
             </div>
           </div>

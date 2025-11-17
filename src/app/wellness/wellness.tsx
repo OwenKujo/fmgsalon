@@ -63,7 +63,7 @@ export default function MatsengaWellness() {
       title: "Head Therapeutic Massage",
       subtitle: "นวดศีรษะบำบัด",
       description:
-        "Targeted head massage to release tension and relieve migraine pain.",
+        "Focusing on the forehead and head areas, including acupressure points, to stimulate the nervous system, and aiding relaxation.",
       image: "/head.jpg",
       options: [
         { duration: "45 mins", price: "1,200 THB" },
@@ -188,7 +188,10 @@ export default function MatsengaWellness() {
           <p className="mt-6 max-w-xl text-base md:text-lg text-white/80 leading-relaxed">
             A sanctuary of healing and elements balance where traditional Thai therapists meet modern wellness.
           </p>
-          <button className="mt-8 bg-[#D4B08A] hover:bg-[#C4A07A] text-white px-10 py-4 rounded-full text-sm md:text-base font-medium shadow-lg transition-all duration-300">
+          <button
+            onClick={() => carouselRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            className="mt-8 bg-[#D4B08A] hover:bg-[#C4A07A] text-white px-10 py-4 rounded-full text-sm md:text-base font-medium shadow-lg transition-all duration-300"
+          >
             Discover Treatments
           </button>
         </div>

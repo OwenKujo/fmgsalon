@@ -50,9 +50,9 @@ const Footer: React.FC = () => {
           {/* Right Side - Social Media */}
           <div className="flex items-center space-x-4">
             <a
-              href="https://wa.me/6645645145"
-              className="text-gray-800 hover:text-green-600 transition-colors"
-              aria-label="Phone"
+              href="tel:0864565141"
+              className="text-gray-800 hover:text-gray-600 transition-colors"
+              aria-label="Call"
             >
               <Phone size={20} />
             </a>

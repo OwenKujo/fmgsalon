@@ -122,10 +122,24 @@ export default function BlogForm({ mode, initialValues, onSubmit }: BlogFormProp
         imageUrl = data.url;
       }
       // 2. Prepare blog data
+      // If the editor content looks like plain text (no HTML tags),
+      // convert newlines into paragraphs and <br/> so line breaks are preserved
+      // when rendering with `dangerouslySetInnerHTML` on the public blog page.
+      let savedContent = content;
+      const hasHtml = /<[^>]+>/.test((content || "").trim());
+      if (!hasHtml) {
+        // Split paragraphs by double newlines, convert single newlines to <br/>
+        const paragraphs = savedContent
+          .split(/\n\s*\n/)
+          .map((p) => `<p>${p.replace(/\n/g, "<br/>")}</p>`)
+          .filter(Boolean);
+        savedContent = paragraphs.join("\n");
+      }
+
       const blogData: any = {
         title,
         excerpt,
-        content,
+        content: savedContent,
         image: imageUrl,
         tags: JSON.stringify(tags),
         categories: JSON.stringify(categories),

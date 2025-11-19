@@ -85,6 +85,22 @@ const Hero: React.FC = () => {
     setTimeout(() => setCopiedLine(false), 3000);
   };
 
+  const handleDiscover = () => {
+    // Prefer scrolling to a pricing section if present (salon page use-case)
+    const pricingEl = document.getElementById('pricing');
+    if (pricingEl) {
+      pricingEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    // Fallback: navigate to salon pricing
+    try {
+      window.location.href = '/salon#pricing';
+    } catch (e) {
+      // ignore navigation errors
+    }
+  };
+
   return (
     <section id="home" className="relative">
       {/* Carousel */}
@@ -128,7 +144,7 @@ const Hero: React.FC = () => {
                     {t('hero.bookNow')}
                   </button>
                   {copiedLine && <span className="text-sm ml-2 text-yellow-300">Line ID คัดลอกแล้ว: {LINE_ID}</span>}
-                  <button className="px-8 py-3 rounded-full border border-white/80 text-white hover:bg-white/20 transition font-medium">
+                  <button onClick={handleDiscover} className="px-8 py-3 rounded-full border border-white/80 text-white hover:bg-white/20 transition font-medium">
                     {t('hero.discover')}
                   </button>
                 </div>
@@ -190,7 +206,7 @@ const Hero: React.FC = () => {
                 {t('hero.bookNow')}
               </button>
               {copiedLine && <span className="text-sm text-gray-600 ml-2">Line ID คัดลอกแล้ว: {LINE_ID}</span>}
-              <button className="px-8 py-4 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-50 transition-colors font-medium text-lg">
+              <button onClick={handleDiscover} className="px-8 py-4 rounded-full border border-gray-400 text-gray-700 hover:bg-gray-50 transition-colors font-medium text-lg">
                 {t('hero.discover')}
               </button>
             </div>

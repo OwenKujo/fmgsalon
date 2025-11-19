@@ -31,7 +31,7 @@ const Pricing: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-primary-beige to-white relative">
+    <section id="pricing" className="py-20 bg-gradient-to-b from-primary-beige to-white relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-14">
@@ -80,11 +80,6 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center">
-          <button className="px-10 py-4 rounded-full bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-500 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform">
-            BOOK APPOINTMENT
-          </button>
-        </div>
       </div>
     </section>
   );

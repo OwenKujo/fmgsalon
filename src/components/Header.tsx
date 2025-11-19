@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
           {/* Social Media, Contact & Language */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="https://wa.me/6645645145" className="text-gray-800 hover:text-green-600 transition-colors">
+            <a href="tel:0864565141" className="text-gray-800 hover:text-gray-600 transition-colors" aria-label="Call">
               <Phone size={20} />
             </a>
             <a href="https://instagram.com" className="text-gray-800 hover:text-pink-600 transition-colors">
@@ -66,9 +66,9 @@ const Header: React.FC = () => {
               </button>
             </div>
 
-            <button className="bg-primary-beige text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors text-sm font-medium">
+            <a href="tel:0864565141" className="bg-primary-beige text-gray-800 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors text-sm font-medium inline-block">
               {t('header.call')}
-            </button>
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -99,7 +99,7 @@ const Header: React.FC = () => {
                 {t('nav.about')}
               </a>
               <div className="flex items-center space-x-4 px-3 py-2">
-                <a href="https://wa.me/6645645145" className="text-gray-800 hover:text-green-600 transition-colors">
+                <a href="tel:0864565141" className="text-gray-800 hover:text-gray-600 transition-colors">
                   <Phone size={20} />
                 </a>
                 <a href="https://instagram.com" className="text-gray-800 hover:text-pink-600 transition-colors">

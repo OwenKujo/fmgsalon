@@ -115,7 +115,23 @@ export default function EditBlog() {
         initialValues={{
           title: blog.title,
           excerpt: blog.excerpt ?? "",
-          content: blog.content,
+          // If stored content is HTML, convert common tags back to plain text
+          // so the textarea shows readable line breaks for editing.
+          content: ((): string => {
+            const c = blog.content || "";
+            const looksLikeHtml = /<[^>]+>/.test(c);
+            if (!looksLikeHtml) return c;
+            let t = c;
+            // Convert paragraph boundaries to double newlines
+            t = t.replace(/<\/(p|div)\s*>\s*<\s*(p|div)[^>]*>/gi, "\n\n");
+            // Convert <br> to single newline
+            t = t.replace(/<br\s*\/?>/gi, "\n");
+            // Remove remaining tags
+            t = t.replace(/<[^>]+>/g, "");
+            // Decode HTML entities minimally
+            t = t.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+            return t;
+          })(),
           image: blog.image ?? "",
           tags: blog.tags ?? [],
           categories: blog.categories ?? [],

@@ -158,6 +158,15 @@ export default function MatsengaWellness() {
       setReviewDir(null);
     }, 300);
   };
+
+  const handleBookNow = () => {
+    try {
+      navigator.clipboard?.writeText('@172kadad');
+    } catch (e) {
+      // ignore
+    }
+    window.open('https://line.me/R/ti/p/@172kadad', '_blank');
+  };
   
 
   return (
@@ -255,7 +264,7 @@ export default function MatsengaWellness() {
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
             “นวดแล้วหาย… ไม่ใช่แค่นวดแล้วสบาย” เพราะทุกเคสได้รับการดูแลโดยแพทย์แผนไทยประยุกต์ ด้วยเทคนิคเฉพาะที่ตรงจุด เพื่อผลลัพธ์ที่สัมผัสได้จริง
           </p>
-          <button className="mx-auto mt-6 bg-[#D4B08A] hover:bg-[#C4A07A] text-white px-12 py-4 rounded-full text-md font-medium transition-colors duration-300">
+          <button onClick={handleBookNow} className="mx-auto mt-6 bg-[#D4B08A] hover:bg-[#C4A07A] text-white px-12 py-4 rounded-full text-md font-medium transition-colors duration-300">
             BOOK NOW
           </button>
         
@@ -264,7 +273,7 @@ export default function MatsengaWellness() {
       </div>
 
       {/* Service Carousel Section */}
-      <section
+      <section id="treatments"
         ref={carouselRef}
         className={`py-16 bg-[#F5F1ED] transition-all duration-700 ease-out ${
           carouselVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -336,7 +345,7 @@ export default function MatsengaWellness() {
                           </div>
                         ))}
                       </div>
-                      <button className="bg-red-700 hover:bg-red-800 text-white px-6 md:px-8 py-3 rounded font-semibold mt-auto self-center md:self-start">
+                      <button onClick={handleBookNow} className="bg-red-700 hover:bg-red-800 text-white px-6 md:px-8 py-3 rounded font-semibold mt-auto self-center md:self-start">
                         BOOKING
                       </button>
                     </div>
@@ -379,7 +388,7 @@ export default function MatsengaWellness() {
             ))}
           </div>
           <div className="flex justify-center mb-10">
-            <button className="px-8 py-3 border border-amber-900 text-amber-900 rounded-full font-medium text-base hover:bg-amber-900 hover:text-white transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-900 focus:ring-offset-2">
+            <button onClick={handleBookNow} className="px-8 py-3 border border-amber-900 text-amber-900 rounded-full font-medium text-base hover:bg-amber-900 hover:text-white transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-900 focus:ring-offset-2">
               Book Your Personalized Session
             </button>
           </div>

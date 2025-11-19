@@ -56,7 +56,7 @@ const BranchCard: React.FC<{ branch: Branch }> = ({ branch }) => (
           <Phone className="w-6 h-6 text-gray-800" />
         </div>
         <div>
-          <p className="text-gray-800 font-semibold">Tel. {branch.phone}</p>
+          <p className="text-gray-800 font-semibold">Tel. <a href="tel:0864565141" className="font-semibold hover:underline">086-456-5141</a></p>
           <p className="text-gray-600 text-sm">Call us for appointments</p>
         </div>
       </div>
@@ -77,6 +77,16 @@ const BranchCard: React.FC<{ branch: Branch }> = ({ branch }) => (
 const Contact: React.FC = () => {
   const [index, setIndex] = useState(0);
   const selected = branches[index];
+
+  const handleBookNow = () => {
+    try {
+      navigator.clipboard?.writeText('@172kadad');
+    } catch (e) {
+      // ignore
+    }
+    // open LINE chat (web URL) - will prompt on mobile
+    window.open('https://line.me/R/ti/p/@172kadad', '_blank');
+  };
 
   function prev() {
     setIndex((i) => (i - 1 + branches.length) % branches.length);
@@ -156,7 +166,7 @@ const Contact: React.FC = () => {
 
             {/* Book Now Button */}
             <div className="mt-8 text-center">
-              <button className="px-10 py-4 rounded-full bg-accent-beige text-gray-800 font-semibold text-lg shadow-lg hover:bg-gray-100 transition">
+              <button onClick={handleBookNow} className="px-10 py-4 rounded-full bg-accent-beige text-gray-800 font-semibold text-lg shadow-lg hover:bg-gray-100 transition">
                 BOOK NOW
               </button>
             </div>

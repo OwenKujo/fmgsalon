@@ -50,10 +50,10 @@ export default function Navigation() {
               </a>
             ))}
             <a 
-              href="tel:064456516" 
+              href="tel:0864565141" 
               className="text-sm font-medium text-black hover:text-gray-600 border-l pl-4 ml-2"
             >
-              064-456-516
+              086-456-5141
             </a>
           </div>
         </div>
